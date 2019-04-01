@@ -2,7 +2,9 @@
 #include"in_out.h"
 //用来管理输入输出的函数
 #define MAX_WORD_LEN 50
-
+#define MAX_TOTAL_WORD_NUM 100
+#define MAX_CHAIN_LEN 100
+#define MAX_CHAIN_COUNT 100
 
 class In_Out
 {
@@ -20,10 +22,10 @@ public:
 
 	~In_Out();
 public:
-	char *words[1000];//存放单词
+	char *words[MAX_TOTAL_WORD_NUM];//存放单词
 	int  word_num;//单词数量
-	char *result[100];//存放单词链
-	char *result_array[1000][100];//存放特定数量的单词链
+	char *result[MAX_CHAIN_LEN];//存放单词链
+	char *result_array[MAX_CHAIN_COUNT][MAX_CHAIN_LEN];//存放特定数量的单词链
 	int chain_count;//单词链的数量（用于-n型）
 };
 

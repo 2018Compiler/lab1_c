@@ -7,6 +7,8 @@ Adjlist_Graph::Adjlist_Graph()
 	Vnode_num = VNODE_SIZE;
 	Arc_num = 0;
 	adjlist = new Vnode[Vnode_num];
+	if (!adjlist)
+		throw "Exception: OVERFLOW";
 	pre_arc = NULL;
 	letter_flag = false;
 	word_flag = false;
@@ -27,10 +29,15 @@ void Adjlist_Graph::Create_Graph(char *words[], int len)
 	{
 		int j = words[i][0] - 'a';
 		ArcNode *p = new ArcNode;
+		if (!p)
+			throw "Exception: OVERFLOW";
+		
 		int len=strlen(words[i]);
 		p->alpha = words[i][len-1];//应该是作为末字母
 		p->lenth = len;
 		p->name = new char[p->lenth+1];
+		if (!p->name)
+			throw "Exception: OVERFLOW";
 		strcpy(p->name, words[i]);
 		p->visited = false;
 		p->NextArc = adjlist[j].FirstArc;
@@ -72,6 +79,7 @@ void Adjlist_Graph::DFS_ArcNode(int i)
 
 			p->visited = true;
 			word_chain.push_back(p->name);
+
 			if (letter_flag)
 				cur_letter_count += p->lenth;
 
