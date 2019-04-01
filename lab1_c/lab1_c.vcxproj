@@ -115,6 +115,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Adjlist_Graph.cpp" />
+    <ClCompile Include="Core.cpp" />
+    <ClCompile Include="in_out.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Adjlist_Graph.h" />
+    <ClInclude Include="Core.h" />
+    <ClInclude Include="in_out.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
