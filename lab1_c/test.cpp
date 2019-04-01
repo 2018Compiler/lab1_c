@@ -1,8 +1,7 @@
 #include"in_out.h"
 #include"Adjlist_Graph.h"
 using namespace std;
-int main()
+int main(int argc, char*argv[])
 {
-	In_Out begin;
-	begin.in();
+	return 0;
 }

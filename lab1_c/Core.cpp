@@ -4,9 +4,76 @@
 #include<string.h>
 #include"Adjlist_Graph.h"
 //#include"in_out.h"
-Core::Core()
-{
-	return;
+
+int Core::get_cmd(int argc, char* argv[]) {
+	for (int i = 1; i < argc; i += 2)
+	{
+		if (strcmp(argv[i], "-w") == 0)
+		{
+			if (most_letter)
+			{
+				throw("Exception: the parameter -w should not be used together with -c.");
+			}
+			longest_word = true;
+			filepath = argv[i + 1];
+		}
+
+		else if (strcmp(argv[i], "-c") == 0)
+		{
+			if (set_num)
+			{
+				throw("Exception: the parameter -c should not be used together with -n.");
+			}
+			if (longest_word)
+			{
+				throw("Exception: the parameter -c should not be used together with -w.");
+			}
+			most_letter = true;
+			filepath = argv[i + 1];
+		}
+
+		else if (strcmp(argv[i], "-h") == 0)
+		{
+			start_ch = argv[i + 1][0];
+			if (strlen(argv[i + 1]) > 1 ||
+				((start_ch < 'a' || start_ch > 'z') && (start_ch < 'A' || start_ch > 'Z')))
+			{
+				throw("Exception: parameter after -h should be a single letter.");
+			}
+		}
+		else if (strcmp(argv[i], "-t") == 0)
+		{
+			end_ch = argv[i + 1][0];
+			if (strlen(argv[i + 1]) > 1 ||
+				((end_ch < 'a' || end_ch > 'z') && (end_ch < 'A' || end_ch > 'Z'))) 
+			{
+				throw("Exception: parameter after -t should be a single letter.");
+			}
+		}
+		else if (strcmp(argv[i], "-n") == 0)
+		{
+			if (most_letter)
+			{
+				throw("Exception: the parameter -n should not be used together with -c.");
+			}
+			set_num = atoi(argv[i + 1]);
+			if (set_num <= 0) 
+			{
+				throw("Exception: parameter after -n should be an integer above zero.");
+			}
+		}
+		else
+			throw("Exception: the parameter " , argv[i] , "is illegal.");
+	}
+	if (strcmp(&filepath[strlen(filepath) - 3], ".txt") != 0) 
+	{
+		throw("Exception: the input file should be a txt file.");
+	}
+	if (!(longest_word || most_letter))
+	{
+		throw("Exception: the command should include one of -w or -c.");
+	}
+	return 0;
 }
 int Core:: gen_chain_word(char* words[], int len, char* result[], char head, char tail)
 {
