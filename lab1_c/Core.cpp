@@ -15,7 +15,12 @@ int Core::get_cmd(int argc, char* argv[]) {
 				throw("Exception: the parameter -w should not be used together with -c.");
 			}
 			longest_word = true;
+			if (i + 1 >= argc)
+			{
+				throw "Exception: the filepath of wordlist should be pointed after -w";
+			}
 			filepath = argv[i + 1];
+
 		}
 
 		else if (strcmp(argv[i], "-c") == 0)
@@ -29,11 +34,23 @@ int Core::get_cmd(int argc, char* argv[]) {
 				throw("Exception: the parameter -c should not be used together with -w.");
 			}
 			most_letter = true;
+			if (i + 1 >= argc)
+			{
+				throw "Exception: the filepath of wordlist should be pointed after -c";
+			}
 			filepath = argv[i + 1];
 		}
 
 		else if (strcmp(argv[i], "-h") == 0)
 		{
+			if (i + 1 >= argc)
+			{
+				throw "Exception: the start char of word-chain should be pointed after -h";
+			}
+			if (strlen(argv[i + 1]) > 1)
+			{
+				throw "Exception: only one char should be pointed after -h";
+			}
 			start_ch = argv[i + 1][0];
 			if (strlen(argv[i + 1]) > 1 ||
 				((start_ch < 'a' || start_ch > 'z') && (start_ch < 'A' || start_ch > 'Z')))
@@ -43,6 +60,14 @@ int Core::get_cmd(int argc, char* argv[]) {
 		}
 		else if (strcmp(argv[i], "-t") == 0)
 		{
+			if (i + 1 >= argc)
+			{
+				throw "Exception: the end char of word-chain should be pointed after -t";
+			}
+			if (strlen(argv[i + 1]) > 1)
+			{
+				throw "Exception: only one char should be pointed after -t";
+			}
 			end_ch = argv[i + 1][0];
 			if (strlen(argv[i + 1]) > 1 ||
 				((end_ch < 'a' || end_ch > 'z') && (end_ch < 'A' || end_ch > 'Z')))
@@ -56,16 +81,31 @@ int Core::get_cmd(int argc, char* argv[]) {
 			{
 				throw("Exception: the parameter -n should not be used together with -c.");
 			}
-			set_num = atoi(argv[i + 1]);
-			if (set_num <= 0)
+			if (i + 1 >= argc)
 			{
-				throw("Exception: parameter after -n should be an integer above zero.");
+				throw "Exception: the len of word-chain should be pointed after -n";
 			}
+			else
+			{
+				for (int j = 0; j < strlen(argv[i + 1]); j++)
+				{
+					if(argv[i+1][j]<'0'||argv[i+1][j]>'9')
+						throw "Exception: the len of word-chain should be integer above zero";
+				}
+				set_num = atoi(argv[i + 1]);
+
+			}
+
 		}
 		else
 			throw("Exception: the parameter ", argv[i], "is illegal.");
 	}
-	if (strcmp(&filepath[strlen(filepath) - 3], ".txt") != 0)
+
+	if (argc <= 1)
+	{
+		throw "Lack of parameter for searching";
+	}
+	if (strlen(filepath) < 4||strcmp(&filepath[strlen(filepath) - 4], ".txt") != 0)
 	{
 		throw("Exception: the input file should be a txt file.");
 	}
@@ -153,7 +193,7 @@ int Core::gen_chain_word_certain_num(char* words[], int len, char* result[][100]
 
 	graph.DFS();
 	if (graph.chain_count > MAX_CHAIN_COUNT)
-		throw "Exception: the count of the word-chain with certain len exceed.";
+		throw "Exception: the count of the word-chain with certain len exceeds.";
 	result_chain_count = graph.chain_count;
 	for (int k = 0; k < graph.chain_count; k++)
 	{

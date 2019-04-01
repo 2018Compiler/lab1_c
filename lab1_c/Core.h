@@ -2,7 +2,7 @@
 class Core
 {
 public:
-	bool longest_word = true, most_letter = false;
+	bool longest_word = false, most_letter = false;
 	char* filepath = nullptr, start_ch = 0, end_ch = 0;
 	int set_num = 0;
 

@@ -45,7 +45,7 @@ void In_Out::in(char *filepath)
 				temp[k++] = ch;
 			}
 			else {
-				throw "Exception: total letters of a word exceed.";
+				throw "Exception: the number of letters in some word exceed.";
 			}
 
 
@@ -55,7 +55,7 @@ void In_Out::in(char *filepath)
 		if (readin.insert(temp).second == true)
 		{
 			if (word_num >= MAX_TOTAL_WORD_NUM)
-				throw "Exception: the number of word in the inputfile exceeds ";
+				throw "Exception: the number of words in the inputfile exceeds ";
 			words[word_num] = new char[k];
 			if (!words[word_num])
 				throw "Exception: OVERFLOW";
