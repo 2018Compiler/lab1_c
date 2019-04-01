@@ -7,6 +7,7 @@ public:
 	int set_num = 0;
 
 public:
+	int get_cmd(int argc, char* argv[]);
 
 	int gen_chain_word(char* words[], int len, char* result[], char head='\0', char tail='\0');
 
