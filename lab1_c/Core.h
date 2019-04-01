@@ -2,10 +2,11 @@
 class Core
 {
 public:
+	bool longest_word = true, most_letter = false;
+	char* filepath = nullptr, start_ch = 0, end_ch = 0;
+	int set_num = 0;
 
 public:
-	Core();
-
 
 	int gen_chain_word(char* words[], int len, char* result[], char head='\0', char tail='\0');
 
