@@ -48,6 +48,7 @@ void Adjlist_Graph::Create_Graph(char *words[], int len)
 
 void Adjlist_Graph::DFS()
 {
+	start_clock = clock();
 	for (int i = 0; i < Vnode_num; i++)
 	{
 		if (adjlist[i].FirstArc)
@@ -69,7 +70,10 @@ void Adjlist_Graph::DFS()
 	}
 }
 void Adjlist_Graph::DFS_ArcNode(int i)
-{
+{   
+	cur_clock = clock();
+	if ((cur_clock - start_clock) / CLOCKS_PER_SEC >= 30)
+		throw"Exception:runtime out";
 	ArcNode *tmp = pre_arc;
 	for (ArcNode *p = adjlist[i].FirstArc; p; p = p->NextArc)
 	{

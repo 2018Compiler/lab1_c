@@ -1,23 +1,24 @@
-#pragma once
+ï»¿#pragma once
 #include<iostream>
 #include<vector>
+#include<time.h>
 using namespace std;
 #define VNODE_SIZE 26
 
 struct ArcNode
 {
-	ArcNode():NextArc(NULL){}//³õÊ¼»¯
-	char alpha;	//¶¥µã;0-25¶ÔÓ¦a-z
-	char *name; //µ¥´Ê
-	int lenth;	//µ¥´Ê³¤¶È
+	ArcNode():NextArc(NULL){}//åˆå§‹åŒ–
+	char alpha;	//é¡¶ç‚¹;0-25å¯¹åº”a-z
+	char *name; //å•è¯
+	int lenth;	//å•è¯é•¿åº¦
 	bool visited;
 	ArcNode *NextArc;
 };
 
 struct Vnode
 {
-	Vnode():FirstArc(NULL){}//³õÊ¼»¯Îªnull
-	char alpha;//ÓÃÀ´·Å×ÖÄ¸
+	Vnode():FirstArc(NULL){}//åˆå§‹åŒ–ä¸ºnull
+	char alpha;//ç”¨æ¥æ”¾å­—æ¯
 	ArcNode *FirstArc;
 };
 
@@ -39,8 +40,8 @@ public:
 
 
 public:
-	vector<string>longest_word_chain;//ÒÑ¾­ÊÇ³õÊ¼»¯Îªsize=0£»
-	vector<string>word_chain_array[10000];//ÏÈÊÇ¾²Ì¬µÄ10000¸ö
+	vector<string>longest_word_chain;//å·²ç»æ˜¯åˆå§‹åŒ–ä¸ºsize=0ï¼›
+	vector<string>word_chain_array[10000];//å…ˆæ˜¯é™æ€çš„10000ä¸ª
 	char head;
 	char tail;
 	bool letter_flag;
@@ -59,6 +60,9 @@ private:
 	int max_letter_count;
 
 	vector<string> word_chain;
+
+	clock_t start_clock;
+	clock_t cur_clock;
 
  };
 
