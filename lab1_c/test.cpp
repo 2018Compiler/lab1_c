@@ -43,9 +43,9 @@ int main(int argc,char *argv[])
 	//	}
 	//	
 	//}
-	catch (const char *msg)
+	catch (const int msg)
 	{
-		cerr << msg << endl;
+		throw Exception[msg];
 	}
 
 

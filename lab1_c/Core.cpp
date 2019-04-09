@@ -5,6 +5,7 @@
 #include"Adjlist_Graph.h"
 #include"in_out.h"
 
+
 int Core::get_cmd(int argc, char* argv[]) {
 	for (int i = 1; i < argc; i += 2)
 	{
@@ -12,12 +13,12 @@ int Core::get_cmd(int argc, char* argv[]) {
 		{
 			if (most_letter)
 			{
-				throw("Exception: the parameter -w should not be used together with -c.");
+				throw 0;
 			}
 			longest_word = true;
 			if (i + 1 >= argc)
 			{
-				throw "Exception: the filepath of wordlist should be pointed after -w";
+				throw 1;
 			}
 			filepath = argv[i + 1];
 
@@ -27,16 +28,16 @@ int Core::get_cmd(int argc, char* argv[]) {
 		{
 			if (set_num)
 			{
-				throw("Exception: the parameter -c should not be used together with -n.");
+				throw 2;
 			}
 			if (longest_word)
 			{
-				throw("Exception: the parameter -c should not be used together with -w.");
+				throw 3;
 			}
 			most_letter = true;
 			if (i + 1 >= argc)
 			{
-				throw "Exception: the filepath of wordlist should be pointed after -c";
+				throw 4;
 			}
 			filepath = argv[i + 1];
 		}
@@ -45,52 +46,52 @@ int Core::get_cmd(int argc, char* argv[]) {
 		{
 			if (i + 1 >= argc)
 			{
-				throw "Exception: the start char of word-chain should be pointed after -h";
+				throw 5;
 			}
 			if (strlen(argv[i + 1]) > 1)
 			{
-				throw "Exception: only one char should be pointed after -h";
+				throw 6;
 			}
 			start_ch = argv[i + 1][0];
 			if (strlen(argv[i + 1]) > 1 ||
 				((start_ch < 'a' || start_ch > 'z') && (start_ch < 'A' || start_ch > 'Z')))
 			{
-				throw("Exception: parameter after -h should be a single letter.");
+				throw 7;
 			}
 		}
 		else if (strcmp(argv[i], "-t") == 0)
 		{
 			if (i + 1 >= argc)
 			{
-				throw "Exception: the end char of word-chain should be pointed after -t";
+				throw 8;
 			}
 			if (strlen(argv[i + 1]) > 1)
 			{
-				throw "Exception: only one char should be pointed after -t";
+				throw 9;
 			}
 			end_ch = argv[i + 1][0];
 			if (strlen(argv[i + 1]) > 1 ||
 				((end_ch < 'a' || end_ch > 'z') && (end_ch < 'A' || end_ch > 'Z')))
 			{
-				throw("Exception: parameter after -t should be a single letter.");
+				throw 10;
 			}
 		}
 		else if (strcmp(argv[i], "-n") == 0)
 		{
 			if (most_letter)
 			{
-				throw("Exception: the parameter -n should not be used together with -c.");
+				throw 11;
 			}
 			if (i + 1 >= argc)
 			{
-				throw "Exception: the len of word-chain should be pointed after -n";
+				throw 12;
 			}
 			else
 			{
 				for (int j = 0; j < strlen(argv[i + 1]); j++)
 				{
 					if(argv[i+1][j]<'0'||argv[i+1][j]>'9')
-						throw "Exception: the len of word-chain should be integer above zero";
+						throw 13;
 				}
 				set_num = atoi(argv[i + 1]);
 
@@ -98,20 +99,20 @@ int Core::get_cmd(int argc, char* argv[]) {
 
 		}
 		else
-			throw("Exception: the parameter ", argv[i], "is illegal.");
+			throw 14;
 	}
 
 	if (argc <= 1)
 	{
-		throw "Lack of parameter for searching";
+		throw 15;
 	}
 	if (strlen(filepath) < 4||strcmp(&filepath[strlen(filepath) - 4], ".txt") != 0)
 	{
-		throw("Exception: the input file should be a txt file.");
+		throw 16;
 	}
 	if (!(longest_word || most_letter))
 	{
-		throw("Exception: the command should include one of -w or -c.");
+		throw 17;
 	}
 	return 0;
 }
@@ -129,7 +130,7 @@ int Core:: gen_chain_word(char* words[], int len, char* result[], char head, cha
 
 		graph.DFS();
 		if (graph.longest_word_chain.size() > MAX_CHAIN_LEN)
-			throw "Exception: the len of word-chain at the result exceed";
+			throw 18;
 		int i;
 		for (i = 0; i < graph.longest_word_chain.size(); i++)
 		{
@@ -140,7 +141,7 @@ int Core:: gen_chain_word(char* words[], int len, char* result[], char head, cha
 			buf[length] = '\0';
 			result[i] = new char[length];
 			if (!result[i])
-				throw "Exception: OVERFLOW";
+				throw 19;
 			strcpy(result[i], buf);
 		}
 		result[i] = NULL;//作为结束标志
@@ -160,7 +161,7 @@ int Core::gen_chain_char(char* words[], int len, char* result[], char head, char
 
 		graph.DFS();
 		if (graph.longest_word_chain.size() > MAX_CHAIN_LEN)
-			throw "Exception: the len of word-chain at the result exceed";
+			throw 18;
 		int i;
 		for (i = 0; i < graph.longest_word_chain.size(); i++)
 		{
@@ -171,7 +172,7 @@ int Core::gen_chain_char(char* words[], int len, char* result[], char head, char
 			buf[length] = '\0';
 			result[i] = new char[length];
 			if (!result[i])
-				throw "Exception: OVERFLOW";
+				throw 19;
 			strcpy(result[i], buf);
 		}
 		result[i] = NULL;//作为结束标志
@@ -186,13 +187,13 @@ int Core::gen_chain_word_certain_num(char* words[], int len, char* result[][100]
 		if (len < num)
 		{
 			//printf("Exception: the number of words in the file is less than n.\n");
-			throw "Exception: the number of words in the file is less than n.";
+			throw 20;
 
 		}
 		if (num > MAX_CHAIN_LEN)
 		{
 			//printf("there is too many word lists, we can't hold them.\n");
-			throw "Exception: the len of word-chain  for searching exceed";
+			throw 18;
 		}
 		Adjlist_Graph graph;
 		graph.Create_Graph(words, len);
@@ -203,7 +204,7 @@ int Core::gen_chain_word_certain_num(char* words[], int len, char* result[][100]
 
 		graph.DFS();
 		if (graph.chain_count > MAX_CHAIN_COUNT)
-			throw "Exception: the count of the word-chain with certain len exceeds.";
+			throw 21;
 		result_chain_count = graph.chain_count;
 		for (int k = 0; k < graph.chain_count; k++)
 		{
@@ -217,7 +218,7 @@ int Core::gen_chain_word_certain_num(char* words[], int len, char* result[][100]
 				buf[length] = '\0';
 				result[k][i] = new char[length];
 				if (!result[k][i])
-					throw "Exception: OVERFLOW";
+					throw 19;
 				strcpy(result[k][i], buf);
 			}
 			result[k][i] = NULL;//作为结束标志
@@ -252,7 +253,7 @@ bool Core::WordList_Test(char *words[], int len)
 		//printf("%p  :  %p \n", &words[i],words[i]);
 		if (!isWord(words[i]))
 		{
-			throw"Exception: some word is illegal.";
+			throw 22;
 			return false;
 		}
 		sprintf(tmp, "%p", words[i+1]);
@@ -260,7 +261,7 @@ bool Core::WordList_Test(char *words[], int len)
 	}
 	if (i < len)
 	{
-		throw"Exception: the actual num of words is less than given.";
+		throw 23;
 		return false;
 	}
 	return true;

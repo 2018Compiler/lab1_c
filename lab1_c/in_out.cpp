@@ -21,7 +21,7 @@ void In_Out::in(char *filepath)
 	if (!fp)
 	{
 		//printf("open file failed.\n");
-		throw "Exception: open file failed.";
+		throw 24;
 
 	}
 	set<string> readin;
@@ -45,7 +45,7 @@ void In_Out::in(char *filepath)
 				temp[k++] = ch;
 			}
 			else {
-				throw "Exception: the number of letters in some word exceed.";
+				throw 25;
 			}
 
 
@@ -55,10 +55,10 @@ void In_Out::in(char *filepath)
 		if (readin.insert(temp).second == true)
 		{
 			if (word_num >= MAX_TOTAL_WORD_NUM)
-				throw "Exception: the number of words in the inputfile exceeds ";
+				throw 26;
 			words[word_num] = new char[k];
 			if (!words[word_num])
-				throw "Exception: OVERFLOW";
+				throw 19;
 			strcpy(words[word_num], temp);
 			word_num++;
 		}
@@ -67,7 +67,7 @@ void In_Out::in(char *filepath)
 	if (!word_num)
 	{
 		//printf("there is no word in the file.\n");
-		throw "Exception: there is no word in the file.";
+		throw 27;
 	}
 	readin.clear();
 
@@ -79,7 +79,7 @@ void In_Out::print_result()
 	if (!fp)
 	{
 		//printf("output to solution.txt failed.\n");
-		throw "Exception: output to solution.txt failed.\n";
+		throw 28;
 	}
 	for (int i = 0; result[i]; i++)
 	{
@@ -92,7 +92,7 @@ void In_Out::print_result_array()
 	FILE*fp = fopen("./solution.txt", "w");
 	if (!fp)
 	{
-		throw "Exception: output to solution.txt failed.\n";
+		throw 28;
 	}
 	fprintf(fp, "%d\n", chain_count);
 	for (int i = 0; i < chain_count; i++)
