@@ -187,3 +187,4 @@ Adjlist_Graph::~Adjlist_Graph()
 	}
 	delete adjlist;
 }
+

@@ -34,7 +34,6 @@ public:
 	
 	void DFS_ArcNode(int i);
 
-	
 
 	~Adjlist_Graph();
 

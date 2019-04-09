@@ -15,5 +15,8 @@ public:
 
 	int gen_chain_word_certain_num(char* words[], int len, char* result[][100], int &result_chain_count,int num,char head='\0', char tail='\0');
 
+	bool isWord(char word[]);
+
+	bool WordList_Test(char *words[],int len);
 };
 
